@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 
 const url = process.env.MONGODB_URL
-console.log(url)
 
 // Establecer ligação à base de dados
 mongoose.connect(process.env.MONGODB_URL, {
