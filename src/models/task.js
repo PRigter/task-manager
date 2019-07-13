@@ -2,12 +2,12 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 
 
-const taskSchema = new moongoseSchema({
+const taskSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true,
         required: true,
-        validade(value) {
+        validate(value) {
             if (validator.isInt(value)) {
                 throw new Error("Your description cannot be only a number")
             }

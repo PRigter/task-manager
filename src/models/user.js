@@ -1,12 +1,12 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
 
-const userSchema = new mongooseSchema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
         required: true,
-        validade(value) {
+        validate(value) {
             if (validator.isEmpty(value)) {
                 throw new Error("Name cannot be empty")
             }
@@ -23,7 +23,7 @@ const userSchema = new mongooseSchema({
         required: true,
         trim: true,
         lowercase: true,
-        validade(value) {
+        validate(value) {
             if(!validator.isEmail(value)) {
                 throw new Error("Email is not valid")
             }
@@ -34,9 +34,9 @@ const userSchema = new mongooseSchema({
         type: String,
         required: true,
         trim: true,
-        validade(value) {
+        validate(value) {
             if(!validator.isLength(value, { min: 5, max: undefined })) {
-                throw new Error("Password must have more than 5 characters")
+                throw new Error("Password must have more than 4 characters")
             }
 
             if (value.toLowerCase().includes("password")) {
