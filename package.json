@@ -16,7 +16,8 @@
   },
   "scripts": {
     "dev": "env-cmd --file ./config/dev.env nodemon src/index.js",
-    "start": "concurrently \"npm run dev\" \"cd frontend && npm start && cd ..\" --kill-others --watch"
+    "start": "concurrently \"npm run dev\" \"cd frontend && npm start && cd ..\" --kill-others --watch",
+    "init-modules": "npm install && cd frontend && npm install && cd .."
   },
   "author": "Paulo Rigter",
   "license": "ISC"
