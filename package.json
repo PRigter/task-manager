@@ -10,12 +10,13 @@
     "validator": "^11.0.0"
   },
   "devDependencies": {
+    "concurrently": "^4.1.1",
     "env-cmd": "^9.0.3",
     "nodemon": "^1.19.1"
   },
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "env-cmd --file ./config/dev.env nodemon src/index.js"
+    "dev": "env-cmd --file ./config/dev.env nodemon src/index.js",
+    "start": "concurrently \"npm run dev\" \"cd frontend && npm start && cd ..\" --kill-others --watch"
   },
   "author": "Paulo Rigter",
   "license": "ISC"
