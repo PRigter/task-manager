@@ -1,0 +1,9 @@
+{
+  "name": "Task Manager",
+  "theme_color": "#00d2cc",
+  "background_color": "#fff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/"
+}
