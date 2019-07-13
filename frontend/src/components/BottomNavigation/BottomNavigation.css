@@ -1,0 +1,11 @@
+.bottom-nav {
+  max-width: 100%;
+  height: 80px;
+  
+}
+
+.bottom-nav ul {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
