@@ -1,17 +1,19 @@
 # Task Manager
 
-<Add descritpion here about what this is about>
+- Add descritpion here about what this is about
 
 ## Instalation
 
-<Instalation process>
-```bash
-npm run start
-```
-or
+- Instalation process
+
 ```bash
 yarn start
 ```
+or
+```bash
+npm run start
+```
+
 ## Usage
 
 ## Support
