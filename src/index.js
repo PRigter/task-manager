@@ -10,12 +10,27 @@ const app = express()
 // Definição da port
 const port = process.env.PORT
 
-// Parse da info que nos chega formato JSON
+// Definição dos path's for Express config
+const publicDirectoryPath = path.join(__dirname, "../public")
+
+
+// Setup Static Directory to serve
+app.use(express.static(publicDirectoryPath))
+
+// Parse da info que chega ao Servidor em formato JSON -> convertendo a mesma em um Objecto
+// Passamos a conseguir obter a info deste objecto, usando o req.body
 app.use(express.json())
 
 
 //////////////////////////////////////////////////////////
 // Routes 
+
+app.get("/", async (req, res) => {
+    res.send("index")
+})
+
+
+
 
 // Route para criação de uma nova tarefa
 app.post("/tasks", async (req, res) => {
