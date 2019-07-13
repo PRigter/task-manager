@@ -1,6 +1,7 @@
 const path = require("path")
 const express = require("express")
 const Task = require("./models/task")// chamada do modelo --> Task
+const User = require("./models/user") // chamada do modelo --> User
 
 // chamada do mongoose - na pasta "DB"
 require("./db/mongoose")
@@ -24,31 +25,98 @@ app.use(express.json())
 
 //////////////////////////////////////////////////////////
 // Routes 
+// Creation Endpoints
 
-app.get("/", async (req, res) => {
-    res.send("index")
-})
+// --> Creating a User
+app.post("/users", (req, res) => {
+    
+    const user = new User(req.body)
 
-
-
-
-// Route para criação de uma nova tarefa
-app.post("/tasks", async (req, res) => {
-    res.render("List with Tasks")
-
-    const task = new Task({
-        ...req.body
+    user.save().then(() => {
+        res.send(user)
+    }).catch((error) => {
+        res.status(400).send(error)
     })
+})
 
-    try {
-        await task.save()
-        res.status(201).send(task)
-    } catch (e) {
-        res.status(400).send(e)
-    }
-
+// --> Find a User, by id
+app.get("/users/:id", (req, res) => {
 
 })
+
+// --> Updates a User by id
+app.patch("users/:id", (req,res) => {
+
+})
+
+
+app.delete("users/:id", (req, res) => {
+
+})
+
+
+
+// Tasks Endpoints
+// --> Creating a Task
+app.post("/tasks", (req, res) => {
+    const task = new Task(req.body)
+
+    task.save().then(() => {
+        res.send(task)
+    }).catch((error) => {
+        res.status(400).send(error)
+    })
+})
+
+
+// --> Find a task, by id
+app.get("/tasks/:id", (req, res) => {
+
+})
+
+
+// --> Updates a task, by id
+app.patch("/task/:id", (req, res) => {
+
+})
+
+
+// --> Deletes a task, by id
+app.delete("/tasks/:id", (req, res) => {
+
+})
+
+
+
+
+
+
+///////////////////////////////////////////////////////////
+
+// app.get("/", async (req, res) => {
+//     res.send("index")
+// })
+
+
+
+
+// // Route para criação de uma nova tarefa
+// app.post("/tasks", async (req, res) => {
+//     res.render("List with Tasks")
+
+//     const task = new Task({
+//         ...req.body
+//     })
+
+//     try {
+//         await task.save()
+//         res.status(201).send(task)
+//     } catch (e) {
+//         res.status(400).send(e)
+//     }
+
+
+// })
 
 
 

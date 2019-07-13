@@ -17,24 +17,24 @@ mongoose.connect(process.env.MONGODB_URL, {
 })
 
 
-const User = mongoose.model("User", {
-    name: {
-        type: String
-    },
-    age: {
-        type: Number
-    }
-})
+// const User = mongoose.model("User", {
+//     name: {
+//         type: String
+//     },
+//     age: {
+//         type: Number
+//     }
+// })
 
 
-const me = new User({
-    name: "Pedro",
-    age: 36
-})
+// const me = new User({
+//     name: "Pedro",
+//     age: 36
+// })
 
 
-me.save().then(() => {
-    console.log(me)
-}).catch((error) => {
-    console.log("Error", error)
-})
+// me.save().then(() => {
+//     console.log(me)
+// }).catch((error) => {
+//     console.log("Error", error)
+// })
