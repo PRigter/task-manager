@@ -39,15 +39,11 @@ app.get("/", (req, res) => {
 
 // --> Creating a User
 app.post("/users", (req, res) => {
-    console.log(req.body)
     const user = new User(req.body)
-    console.log(user)
     
     user.save().then(() => {
-        console.log('saved', user)
         res.send(user)
     }).catch((error) => {
-        console.log('error', error)
         res.status(400).send(error)
     })
 })
