@@ -33,6 +33,10 @@ app.use(express.json())
 // Routes 
 // Creation Endpoints
 
+app.get("/", (req, res) => {
+    res.render("index") // ----------------> Needs ENGINE correction
+})
+
 // --> Creating a User
 app.post("/users", (req, res) => {
     console.log(req.body)
