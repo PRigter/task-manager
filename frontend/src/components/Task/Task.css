@@ -1,0 +1,12 @@
+.task {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+
+  background-color: #fff;
+  color: #444;
+  padding: 20px;
+}
+  .task-slug {
+    margin-left: 40px;
+  }

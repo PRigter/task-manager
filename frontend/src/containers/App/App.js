@@ -5,11 +5,6 @@ import Home from '../Home/Home'
 import Layout from '../../components/Layout/Layout'
 
 class App extends React.Component {
-  
-  state = {
-    width: 0,
-  }
-
   // componentDidMount () {
   //   const user = {
   //     name: 'Tiago Ferreira',
@@ -23,36 +18,22 @@ class App extends React.Component {
   //   } )
   // }
 
-  componentDidMount () {
-    console.log(window.innerWidth)
-    this.setState({ width: window.innerWidth })
-  }
-
-  updateDimensions = () => {
-    console.log(window.innerWidth)
-    this.setState({ width: window.innerWidth })
-  }
-
-  componentDidMount = () => {
-    window.addEventListener("resize", this.updateDimensions);
-  }
-
-  componentWillUnmount= () => {
-      window.removeEventListener("resize", this.updateDimensions);
-  }
-
   render () {
     return (
-      <Layout width={this.state.width}>
+      
         <div className='container'>
           <BrowserRouter>
-            <Switch>
-            <Route path='/tasks' component={Home} />
-            <Route path='/' component={Home} />
-            </Switch>
+            <Layout>
+              <Switch>
+                <Route path='/tasks' component={Home} exact/>
+                <Route path='/add' component={Home} exact/>
+                <Route path='/settings' component={Home} exact/>
+                <Route path='/account' component={Home} exact/>
+                <Route path='/' component={Home} exact/>
+              </Switch>
+            </Layout>
           </BrowserRouter>
         </div>
-      </Layout>
     )
   }
 }

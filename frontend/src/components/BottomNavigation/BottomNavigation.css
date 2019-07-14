@@ -1,11 +1,25 @@
 .bottom-nav {
-  max-width: 100%;
+  width: 100%;
   height: 80px;
-  
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  z-index: 1000;
 }
 
 .bottom-nav ul {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+  list-style: none;
+  padding: 20px;
+}
+
+.bottom-nav ul a img {
+  opacity: 0.4;
+}
+
+.navlink-active > *{
+  opacity: 1 !important;
 }

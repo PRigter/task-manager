@@ -1,0 +1,52 @@
+.home-page {
+  width: 100%;
+}
+
+.home-feedback {
+  background-color: var(--primary-color);
+  padding: 30px;
+  padding-bottom: 10px;
+  color: #fff;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+}
+.home-feedback > span {
+  margin: 5px 0;
+}
+  .feedback__day {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .feedback__unfinished-tasks {
+    font-size: 16px;
+  }
+  .feedback__percentage {
+    font-size: 40px;
+    font-weight: bolder;
+    align-self: flex-end;
+  }
+    .feedback__percentage > span {
+      font-size: 20px;
+    }
+
+.todo-header {
+  padding: 20px;
+  background: linear-gradient(to right, rgba(255,165,0,0.3) 0%,rgba(255,255,255,1) 100%); 
+  color: rgb(218, 143, 6);
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+.completed-header {
+  padding: 20px;
+  background: linear-gradient(to right, #00d2cc 0%,rgba(255,255,255,0.4) 100%); 
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
