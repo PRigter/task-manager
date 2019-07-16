@@ -1,12 +1,18 @@
 const path = require("path")
+const cors = require("cors")
 const express = require("express")
 const Task = require("./models/task")// chamada do modelo --> Task
 const User = require("./models/user") // chamada do modelo --> User
+
 
 // chamada do mongoose - na pasta "DB"
 require("./db/mongoose")
 
 const app = express()
+
+// CORS enables all connections to the servers
+// altought some config might be needed for productions
+app.use(cors())
 
 // Definição da port
 const port = process.env.PORT
@@ -31,9 +37,8 @@ app.use(express.json())
 
 // --> Creating a User
 app.post("/users", (req, res) => {
-    
     const user = new User(req.body)
-
+    
     user.save().then(() => {
         res.send(user)
     }).catch((error) => {
