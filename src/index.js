@@ -33,8 +33,6 @@ app.use(express.json())
 // Routes 
 // Creation Endpoints
 
-
-
 // --> Creating a User
 app.post("/users", (req, res) => {
     const user = new User(req.body)
