@@ -65,19 +65,38 @@ app.delete("users/:id", (req, res) => {
 
 // Tasks Endpoints
 // --> Creating a Task
-app.post("/tasks", (req, res) => {
+app.post("/tasks", async (req, res) => {
     const task = new Task(req.body)
 
-    task.save().then(() => {
-        res.send(task)
-    }).catch((error) => {
-        res.status(400).send(error)
-    })
+    try {
+        await task.save()
+        res.status(201).send(task)
+    } catch(e) {
+        res.status(500).send(e)
+    }
+
+   
 })
 
 
 // --> Find a task, by id
 app.get("/tasks/:id", (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const task = await Task.findById(_id)
+
+        if (!task) {
+            return res.status(404).send()
+        }
+        
+        res.send(task)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
+    
+
 
 })
 
