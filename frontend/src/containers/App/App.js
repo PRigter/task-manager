@@ -1,22 +1,24 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from '../Home/Home'
 import Layout from '../../components/Layout/Layout'
 
 class App extends React.Component {
-  // componentDidMount () {
-  //   const user = {
-  //     name: 'Tiago Ferreira',
-  //     email: 'thatsnotan@email.com',
-  //     password: '123123123',
-  //     age: 20,
-  //   }
-  //   fetch('http://localhost:3001/users',{
-  //     method: 'POST',
-  //     body: user,
-  //   } )
-  // }
+  componentDidMount () {
+    this.sendData()
+  }
+
+
+  sendData = () => {
+    // fetch("http://localhost:3001/tasks", {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   method: "POST",
+    //   body: JSON.stringify({ "description": "test data from frontend" }),
+    // })
+  }
 
   render () {
     return (
