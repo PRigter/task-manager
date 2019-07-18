@@ -72,13 +72,11 @@ app.post("/tasks", async (req, res) => {
     } catch(e) {
         res.status(500).send(e)
     }
-
-   
 })
 
 
 // --> Find a task, by id
-app.get("/tasks/:id", (req, res) => {
+app.get("/tasks/:id", async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -93,15 +91,36 @@ app.get("/tasks/:id", (req, res) => {
     } catch(e) {
         res.status(500).send(e)
     }
-    
-
 
 })
 
 
 // --> Updates a task, by id
 app.patch("/task/:id", (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ["description", "completed"]
 
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update)
+    })
+
+    if (isValidOperation) {
+        return res.status(400).send({ error: "Invalid Updates!" })
+    }
+    
+    
+    try {
+        const task = Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true })
+
+        if (!task) {
+            res.status(404).send()
+        }
+
+        res.send(task)
+
+    } catch(e) {
+        res.status(400).send(e)
+    }
 })
 
 
