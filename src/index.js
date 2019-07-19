@@ -96,7 +96,7 @@ app.get("/tasks/:id", async (req, res) => {
 
 
 // --> Updates a task, by id
-app.patch("/task/:id", async (req, res) => {
+app.patch("/tasks/:id", async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ["description", "completed"]
 
