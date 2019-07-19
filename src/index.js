@@ -104,7 +104,7 @@ app.patch("/tasks/:id", async (req, res) => {
         return allowedUpdates.includes(update)
     })
 
-    if (isValidOperation) {
+    if (!isValidOperation) {
         return res.status(400).send({ error: "Invalid Updates!" })
     }
     
