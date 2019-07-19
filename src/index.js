@@ -96,7 +96,7 @@ app.get("/tasks/:id", async (req, res) => {
 
 
 // --> Updates a task, by id
-app.patch("/task/:id", (req, res) => {
+app.patch("/task/:id", async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ["description", "completed"]
 
@@ -110,7 +110,7 @@ app.patch("/task/:id", (req, res) => {
     
     
     try {
-        const task = Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true })
+        const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true })
 
         if (!task) {
             res.status(404).send()
@@ -125,7 +125,21 @@ app.patch("/task/:id", (req, res) => {
 
 
 // --> Deletes a task, by id
-app.delete("/tasks/:id", (req, res) => {
+app.delete("/tasks/:id", async (req, res) => {
+
+    try {
+        const _id = req.params.id
+        const task = await Task.findByIdAndDelete(_id)
+
+        if (!task) {
+            return res.status(404).send()
+        }
+
+        res.send(task)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
 
 })
 
