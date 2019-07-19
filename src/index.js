@@ -34,19 +34,36 @@ app.use(express.json())
 // Creation Endpoints
 
 // --> Creating a User
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
     const user = new User(req.body)
     
-    user.save().then(() => {
-        res.send(user)
-    }).catch((error) => {
-        res.status(400).send(error)
-    })
+    try {
+
+        await user.save()
+        res.status(201).send(user)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
+    
 })
 
 // --> Find a User, by id
-app.get("/users/:id", (req, res) => {
+app.get("/users/:id", async (req, res) => {
+    const _id = req.params.id
 
+    try {
+        const user = await User.findById(_id)
+
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
 })
 
 // --> Updates a User by id
