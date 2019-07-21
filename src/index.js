@@ -67,13 +67,56 @@ app.get("/users/:id", async (req, res) => {
 })
 
 // --> Updates a User by id
-app.patch("users/:id", (req,res) => {
+app.patch("/users/:id", async (req, res) => {
+    
+
+    const updates = Object.keys(req.body)
+    console.log(updates)
+    const allowedUpdates = ["name", "email", "password", "age"]
+
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update)
+    })
+
+    console.log(isValidOperation)
+
+    if (!isValidOperation) {
+        return res.status(404).send({"error": "Invalid Updates"})
+    }
+
+    try {
+        const _id = req.params.id
+        const user = await User.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true})
+
+        if (!user) {
+            res.status(404).send()
+        }
+
+        res.send(user)
+
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
+
 
 })
 
 
-app.delete("users/:id", (req, res) => {
+app.delete("/users/:id", async (req, res) => {
+    try {
+        const _id = req.params.id
+        const user = await User.findByIdAndDelete(_id)
 
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+
+    } catch(e) {
+        res.status(500).send()
+    }
 })
 
 
