@@ -164,12 +164,19 @@ app.patch("/tasks/:id", async (req, res) => {
     })
 
     if (!isValidOperation) {
-        return res.status(400).send({ error: "Invalid Updates!" })
+        return res.status(400).send({ "error": "Invalid Updates!" })
     }
     
     
     try {
-        const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true })
+        const _id = req.params.id
+        const task = await Task.findById(_id)
+
+        updates.forEach((update) => {
+            task[update] = req.body[update]    
+        })
+
+        await task.save() 
 
         if (!task) {
             res.status(404).send()
