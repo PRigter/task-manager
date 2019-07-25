@@ -68,17 +68,13 @@ app.get("/users/:id", async (req, res) => {
 
 // --> Updates a User by id
 app.patch("/users/:id", async (req, res) => {
-    
-
     const updates = Object.keys(req.body)
-    console.log(updates)
     const allowedUpdates = ["name", "email", "password", "age"]
 
+    // To verify if the commited changes are allowed properties to change on User
     const isValidOperation = updates.every((update) => {
         return allowedUpdates.includes(update)
     })
-
-    console.log(isValidOperation)
 
     if (!isValidOperation) {
         return res.status(404).send({"error": "Invalid Updates"})
@@ -86,7 +82,13 @@ app.patch("/users/:id", async (req, res) => {
 
     try {
         const _id = req.params.id
-        const user = await User.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true})
+        const user = await User.findById(_id)
+
+        updates.forEach((update) => {
+            user[update] = req.body[update]
+        })
+
+        await user.save()
 
         if (!user) {
             res.status(404).send()
@@ -94,12 +96,9 @@ app.patch("/users/:id", async (req, res) => {
 
         res.send(user)
 
-
     } catch(e) {
         res.status(500).send(e)
     }
-
-
 })
 
 
