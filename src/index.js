@@ -33,6 +33,20 @@ app.use(express.json())
 // Routes 
 // Creation Endpoints
 
+// --> User Login
+app.post("/users/login", async (req, res) => {
+    
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+
+        res.send(user)
+
+    } catch(e) {
+        res.status(400).send(e)
+    }
+})
+
+
 // --> Creating a User
 app.post("/users", async (req, res) => {
     const user = new User(req.body)

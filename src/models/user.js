@@ -65,6 +65,23 @@ const userSchema = new mongoose.Schema({
 })
 
 
+// Mongoose Statics Method -> When Logging In User to compare Email and Password
+userSchema.statics.findByCredentials = async (email, password) =>{
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new Error("Unable to login")
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if (!isMatch) {
+        throw new Error("Unable to login")
+    }
+
+    return user
+}
+
 // Mongoose Middleware -> Using bcrypjs to hash password BEFORE saving User
 userSchema.pre("save", async function (next) {
     const user = this
