@@ -12,17 +12,18 @@ const taskSchema = new mongoose.Schema({
             if (validator.isInt(value)) {
                 throw new Error("Your description cannot be only a number")
             }
-        },
-        completed: {
-            type: Boolean,
-            default: false
         }
-
+    }, 
+    completed: {
+        type: Boolean,
+        default: false
     }
 
 }, {
     timestamps: true
 })
+
+
 
 
 const Task = mongoose.model("Task", taskSchema)

@@ -33,65 +33,194 @@ app.use(express.json())
 // Routes 
 // Creation Endpoints
 
-app.get("/", (req, res) => {
-    res.render("index") // ----------------> Needs ENGINE correction
+// --> User Login
+app.post("/users/login", async (req, res) => {
+    
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        const token = await user.generateAuthToken()       
+
+        res.send({ user, token })
+
+    } catch(e) {
+        res.status(400).send(e)
+    }
 })
 
+
 // --> Creating a User
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
     const user = new User(req.body)
     
-    user.save().then(() => {
-        res.send(user)
-    }).catch((error) => {
-        res.status(400).send(error)
-    })
+    try {
+        await user.save()
+        const token = await user.generateAuthToken()
+        res.status(201).send({ user, token })
+
+    } catch(e) {
+        res.status(400).send(e)
+    }
+    
 })
 
 // --> Find a User, by id
-app.get("/users/:id", (req, res) => {
+app.get("/users/:id", async (req, res) => {
+    const _id = req.params.id
 
+    try {
+        const user = await User.findById(_id)
+
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
 })
 
 // --> Updates a User by id
-app.patch("users/:id", (req,res) => {
+app.patch("/users/:id", async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ["name", "email", "password", "age"]
 
+    // To verify if the commited changes are allowed properties to change on User
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update)
+    })
+
+    if (!isValidOperation) {
+        return res.status(404).send({"error": "Invalid Updates"})
+    }
+
+    try {
+        const _id = req.params.id
+        const user = await User.findById(_id)
+
+        updates.forEach((update) => {
+            user[update] = req.body[update]
+        })
+
+        await user.save()
+
+        if (!user) {
+            res.status(404).send()
+        }
+
+        res.send(user)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
 })
 
 
-app.delete("users/:id", (req, res) => {
+app.delete("/users/:id", async (req, res) => {
+    try {
+        const _id = req.params.id
+        const user = await User.findByIdAndDelete(_id)
 
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+
+    } catch(e) {
+        res.status(500).send()
+    }
 })
 
 
 
 // Tasks Endpoints
 // --> Creating a Task
-app.post("/tasks", (req, res) => {
+app.post("/tasks", async (req, res) => {
     const task = new Task(req.body)
-
-    task.save().then(() => {
-        res.send(task)
-    }).catch((error) => {
-        res.status(400).send(error)
-    })
+    console.log(task)    
+    try {
+        await task.save()
+        res.status(201).send(task)
+    } catch(e) {
+        res.status(500).send(e)
+    }
 })
 
 
 // --> Find a task, by id
-app.get("/tasks/:id", (req, res) => {
+app.get("/tasks/:id", async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const task = await Task.findById(_id)
+
+        if (!task) {
+            return res.status(404).send()
+        }
+        
+        res.send(task)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
 
 })
 
 
 // --> Updates a task, by id
-app.patch("/task/:id", (req, res) => {
+app.patch("/tasks/:id", async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ["description", "completed"]
 
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update)
+    })
+
+    if (!isValidOperation) {
+        return res.status(400).send({ "error": "Invalid Updates!" })
+    }
+    
+    
+    try {
+        const _id = req.params.id
+        const task = await Task.findById(_id)
+
+        updates.forEach((update) => {
+            task[update] = req.body[update]    
+        })
+
+        await task.save() 
+
+        if (!task) {
+            res.status(404).send()
+        }
+
+        res.send(task)
+
+    } catch(e) {
+        res.status(400).send(e)
+    }
 })
 
 
 // --> Deletes a task, by id
-app.delete("/tasks/:id", (req, res) => {
+app.delete("/tasks/:id", async (req, res) => {
+
+    try {
+        const _id = req.params.id
+        const task = await Task.findByIdAndDelete(_id)
+
+        if (!task) {
+            return res.status(404).send()
+        }
+
+        res.send(task)
+
+    } catch(e) {
+        res.status(500).send(e)
+    }
 
 })
 

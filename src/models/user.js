@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -62,6 +64,49 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+
+// Instance Method -> Generates a Token using JWT, to authenticate users
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+
+    const token = jwt.sign({_id: user._id}, "yellowbigcat")
+
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
+
+    return token
+}
+
+
+// Mongoose Statics Method -> When Logging In User to compare Email and Password
+userSchema.statics.findByCredentials = async (email, password) =>{
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new Error("Unable to login")
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if (!isMatch) {
+        throw new Error("Unable to login")
+    }
+
+    return user
+}
+
+// Mongoose Middleware -> Using bcrypjs to hash password BEFORE saving User
+userSchema.pre("save", async function (next) {
+    const user = this
+
+    if (user.isModified("password")) {
+        user.password = await bcrypt.hash(user.password, 8)
+    }
+
+    next()
+})
+
 
 
 const User = mongoose.model("User", userSchema)

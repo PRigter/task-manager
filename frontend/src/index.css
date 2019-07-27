@@ -1,5 +1,6 @@
 :root {
   --primary-color: #00d2cc;
+  --primary-color-dark: #029687;
 }
 
 body {
@@ -10,6 +11,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {

@@ -1,0 +1,16 @@
+.notification {
+  padding: 10px 20px;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-weight: bold;
+  -moz-box-shadow: 0px 1px 5px 0px #676767;
+  -webkit-box-shadow: 0px 1px 5px 0px #676767;
+  box-shadow: 0px 1px 5px 0px #676767;
+}
+
+.close-notification {
+  display: none;
+}
