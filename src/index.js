@@ -1,8 +1,9 @@
 const path = require("path")
 const cors = require("cors")
 const express = require("express")
-const Task = require("./models/task")// chamada do modelo --> Task
+const Task = require("./models/task") // chamada do modelo --> Task
 const User = require("./models/user") // chamada do modelo --> User
+const auth = require("./middleware/auth") // chamada do middleware --> auth
 
 
 // chamada do mongoose - na pasta "DB"
@@ -33,6 +34,22 @@ app.use(express.json())
 // Routes 
 // Creation Endpoints
 
+// --> Creating a User / SIGN UP
+app.post("/users", async (req, res) => {
+    const user = new User(req.body)
+    
+    try {
+        await user.save()
+        const token = await user.generateAuthToken()
+        res.status(201).send({ user, token })
+
+    } catch(e) {
+        res.status(400).send(e)
+    }
+    
+})
+
+
 // --> User Login
 app.post("/users/login", async (req, res) => {
     
@@ -48,19 +65,11 @@ app.post("/users/login", async (req, res) => {
 })
 
 
-// --> Creating a User
-app.post("/users", async (req, res) => {
-    const user = new User(req.body)
-    
-    try {
-        await user.save()
-        const token = await user.generateAuthToken()
-        res.status(201).send({ user, token })
 
-    } catch(e) {
-        res.status(400).send(e)
-    }
-    
+// --> Authenticated User Profile
+app.get("/users/me", auth, async (req, res) => {
+    res.send(req.user)
+
 })
 
 // --> Find a User, by id
