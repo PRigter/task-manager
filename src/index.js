@@ -97,7 +97,6 @@ app.post("/users/logoutAll", auth, async (req, res) => {
         res.status(500).send()
     }
 
-
 })
 
 
@@ -110,24 +109,6 @@ app.get("/users/me", auth, async (req, res) => {
 
 
 
-
-// --> Find a User, by id
-app.get("/users/:id", async (req, res) => {
-    const _id = req.params.id
-
-    try {
-        const user = await User.findById(_id)
-
-        if (!user) {
-            return res.status(404).send()
-        }
-
-        res.send(user)
-
-    } catch(e) {
-        res.status(500).send(e)
-    }
-})
 
 // --> Updates a User by id
 app.patch("/users/:id", async (req, res) => {
