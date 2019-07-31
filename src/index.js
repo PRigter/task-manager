@@ -66,7 +66,7 @@ app.post("/users/login", async (req, res) => {
 
 
 
-// -> User Logout
+// --> User Logout
 app.post("/users/logout", auth, async (req, res) => {
 
     try {
@@ -75,7 +75,7 @@ app.post("/users/logout", auth, async (req, res) => {
         })
 
         await req.user.save()
-        res.send(req.user)
+        res.send({"message": "Logged Out"})
 
     } catch(e) {
         res.status(500).send()
@@ -83,6 +83,22 @@ app.post("/users/logout", auth, async (req, res) => {
 
 })
 
+
+// --> User Logout ALL
+app.post("/users/logoutAll", auth, async (req, res) => {
+
+    try {
+        req.user.tokens = []
+
+        await req.user.save()
+        res.send({"message": "Logout successfully from all sessions"})
+
+    } catch(e) {
+        res.status(500).send()
+    }
+
+
+})
 
 
 
