@@ -109,7 +109,6 @@ app.get("/users/me", auth, async (req, res) => {
 
 
 
-
 // --> Updates a User by id
 app.patch("/users/:id", async (req, res) => {
     const updates = Object.keys(req.body)
@@ -146,16 +145,11 @@ app.patch("/users/:id", async (req, res) => {
 })
 
 
-app.delete("/users/:id", async (req, res) => {
+app.delete("/users/me", auth, async (req, res) => {
     try {
-        const _id = req.params.id
-        const user = await User.findByIdAndDelete(_id)
-
-        if (!user) {
-            return res.status(404).send()
-        }
-
-        res.send(user)
+        
+        await req.user.remove()
+        res.send(req.user)
 
     } catch(e) {
         res.status(500).send()
