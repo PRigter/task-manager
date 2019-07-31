@@ -66,11 +66,34 @@ app.post("/users/login", async (req, res) => {
 
 
 
+// -> User Logout
+app.post("/users/logout", auth, async (req, res) => {
+
+    try {
+        req.user.tokens = req.user.tokens.filter((obj) => {
+            return obj.token !== req.token
+        })
+
+        await req.user.save()
+        res.send(req.user)
+
+    } catch(e) {
+        res.status(500).send()
+    }
+
+})
+
+
+
+
 // --> Authenticated User Profile
 app.get("/users/me", auth, async (req, res) => {
     res.send(req.user)
 
 })
+
+
+
 
 // --> Find a User, by id
 app.get("/users/:id", async (req, res) => {
