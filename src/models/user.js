@@ -66,6 +66,17 @@ const userSchema = new mongoose.Schema({
 })
 
 
+// Instance Method -> Converts first to an JSON Object, to delete the Object properties that we don't want to send a client response.
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
 // Instance Method -> Generates a Token using JWT, to authenticate users
 userSchema.methods.generateAuthToken = async function () {
     const user = this

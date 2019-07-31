@@ -109,7 +109,7 @@ app.get("/users/me", auth, async (req, res) => {
 
 
 
-// --> Updates a User by id
+// --> Updates a User
 app.patch("/users/me", auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ["name", "email", "password", "age"]
