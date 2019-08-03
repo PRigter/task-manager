@@ -148,7 +148,7 @@ app.delete("/users/me", auth, async (req, res) => {
     }
 })
 
-
+///////////////////////////////////////////////////////////////////////
 
 // Tasks Endpoints
 // --> Creating a Task
@@ -184,7 +184,8 @@ app.get("/tasks/:id", auth, async (req, res) => {
     const _id = req.params.id
 
     try {
-        const task = await Task.findById(_id)
+        
+        const task = await Task.findOne({ _id, owner: req.user._id })
 
         if (!task) {
             return res.status(404).send()
@@ -200,7 +201,7 @@ app.get("/tasks/:id", auth, async (req, res) => {
 
 
 // --> Updates a task, by id
-app.patch("/tasks/:id", async (req, res) => {
+app.patch("/tasks/:id", auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ["description", "completed"]
 
@@ -215,7 +216,7 @@ app.patch("/tasks/:id", async (req, res) => {
     
     try {
         const _id = req.params.id
-        const task = await Task.findById(_id)
+        const task = await Task.findOne({ _id, owner: req.user._id })
 
         updates.forEach((update) => {
             task[update] = req.body[update]    
@@ -236,11 +237,11 @@ app.patch("/tasks/:id", async (req, res) => {
 
 
 // --> Deletes a task, by id
-app.delete("/tasks/:id", async (req, res) => {
+app.delete("/tasks/:id", auth, async (req, res) => {
 
     try {
         const _id = req.params.id
-        const task = await Task.findByIdAndDelete(_id)
+        const task = await Task.findOneAndDelete({ _id, owner: req.user._id })
 
         if (!task) {
             return res.status(404).send()
