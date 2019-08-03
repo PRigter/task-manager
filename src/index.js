@@ -168,8 +168,19 @@ app.post("/tasks", auth, async (req, res) => {
 })
 
 
+app.get("/tasks", auth, async (req, res)=> {
+    try {
+        await req.user.populate("tasks").execPopulate()
+        res.send(req.user.tasks)
+
+    } catch(e) {
+        res.status(500).send()
+    }
+})
+
+
 // --> Find a task, by id
-app.get("/tasks/:id", async (req, res) => {
+app.get("/tasks/:id", auth, async (req, res) => {
     const _id = req.params.id
 
     try {
