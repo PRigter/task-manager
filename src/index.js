@@ -152,9 +152,13 @@ app.delete("/users/me", auth, async (req, res) => {
 
 // Tasks Endpoints
 // --> Creating a Task
-app.post("/tasks", async (req, res) => {
-    const task = new Task(req.body)
+app.post("/tasks", auth, async (req, res) => {
+    const task = new Task({
+        ...req.body,
+        owner: req.user._id
+    })
     console.log(task)    
+    
     try {
         await task.save()
         res.status(201).send(task)

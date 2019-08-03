@@ -66,6 +66,13 @@ const userSchema = new mongoose.Schema({
 })
 
 
+// Virtual Propertie - Relation to Tasks Model and the owner Field -> Creates a Virtual Array with Tasks related to specific User
+userSchema.virtual("tasks", {
+    ref: "Task",
+    localField: "_id",
+    foreignField:"owner"
+})
+
 // Instance Method -> Converts first to an JSON Object, to delete the Object properties that we don't want to send a client response.
 userSchema.methods.toJSON = function () {
     const user = this
