@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const Task = require("./task")
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -122,6 +123,17 @@ userSchema.pre("save", async function (next) {
         user.password = await bcrypt.hash(user.password, 8)
     }
 
+    next()
+})
+
+
+
+// Middleware --> Deletes All User Tasks, BEFORE delete user
+userSchema.pre("remove", async function (next) {
+    const user = this
+
+    await Task.deleteMany({ owner: user._id })
+    
     next()
 })
 
