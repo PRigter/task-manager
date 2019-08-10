@@ -4,7 +4,8 @@ const express = require("express")
 const Task = require("./models/task") // chamada do modelo --> Task
 const User = require("./models/user") // chamada do modelo --> User
 const auth = require("./middleware/auth") // chamada do middleware --> auth
-
+const upload = require("./middleware/upload") // chamada do middleware --> upload using multer
+const sharp = require("sharp")
 
 // chamada do mongoose - na pasta "DB"
 require("./db/mongoose")
@@ -280,7 +281,59 @@ app.delete("/tasks/:id", auth, async (req, res) => {
 
 
 
+// --> Route to Create/Upload User Avatar
+app.post("/users/me/avatar", auth, upload.single("avatar"), async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({ width: 200, height: 200 }).toBuffer()
+    req.user.avatar = buffer
+    await req.user.save()
+    res.send()
+     
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
 
+
+// --> Route to Delete User Avatar
+app.delete("/users/me/avatar", auth, async (req, res) => {
+    
+    try {
+
+        if (!req.user.avatar) {
+            throw new Error()
+        }
+    
+        req.user.avatar = undefined
+        await req.user.save()
+        res.send({ "Message": "Your Avatar has been deleted" })
+
+    } catch(e) {
+        res.status(404).send({ "Message": "No Avatar found to Delete" })
+    }
+
+
+})
+
+
+// --> Route to get a User's Avatar
+app.get("/users/id/avatar", async (req, res) => {
+
+    try {
+        const id = req.params.id
+        const user = await User.findById(id)
+
+        if(!user || !user.avatar) {
+            throw new Error()
+        }
+
+        res.set("Content-Type","image/jpg")
+        res.send(user.avatar)
+
+
+    } catch(e) {
+        res.status(404).send()
+    }
+
+})
 
 
 ///////////////////////////////////////////////////////////
