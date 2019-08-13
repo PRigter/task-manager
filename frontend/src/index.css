@@ -1,6 +1,9 @@
 :root {
-  --primary-color: #00d2cc;
-  --primary-color-dark: #029687;
+  --primary-color: #FD6900;
+  --primary-color-dark: #E0C592;
+  --secondary-color: #221913;
+  --action-1: #ffab00;
+  --action-2: #E44D26;
 }
 
 body {
@@ -12,6 +15,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 }
 
 code {

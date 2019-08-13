@@ -20,13 +20,14 @@ class Layout extends React.Component {
 
   render () {
     const { width } = this.state
+    const { disabled } = this.props
 
     return (
       <div style={{ maxWidth: `${this.windowMaxWidth}px`, margin: 'auto', height: '100vh' }}>
-        <div style={{ overflowY: 'scroll', height: '100vh', marginBottom: '60px' }}>
+        <div style={{ overflowY: 'scroll', height: '100vh', paddingBottom: disabled && '60px' }}>
           {this.props.children}
         </div>
-        <BottomNavigation width={width} />
+        { disabled && <BottomNavigation width={width} />}
       </div>
     )
   }

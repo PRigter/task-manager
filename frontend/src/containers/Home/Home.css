@@ -3,13 +3,14 @@
 }
 
 .home-feedback {
-  background-color: var(--primary-color);
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-color-dark));
   padding: 30px;
   padding-bottom: 10px;
   color: #fff;
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  border-bottom-right-radius: 45px;
 }
 .home-feedback > span {
   margin: 5px 0;
@@ -32,7 +33,7 @@
 
 .todo-header {
   padding: 20px;
-  background: linear-gradient(to right, rgba(255,165,0,0.3) 0%,rgba(255,255,255,1) 100%); 
+  background: linear-gradient(to right, rgba(255,165,0,0.3) 0%,rgba(255,255,255,1) 100%);
   color: rgb(218, 143, 6);
   font-size: 20px;
   font-weight: bold;
@@ -42,7 +43,7 @@
 }
 .completed-header {
   padding: 20px;
-  background: linear-gradient(to right, #00d2cc 0%,rgba(255,255,255,0.4) 100%); 
+  background: linear-gradient(to right, #00d2cc 0%,rgba(255,255,255,0.4) 100%);
   color: #fff;
   font-size: 20px;
   font-weight: bold;

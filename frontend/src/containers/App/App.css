@@ -2,3 +2,50 @@
   text-align: center;
   margin: auto;
 }
+
+.auth {
+  background-color: #fff;
+  padding: 40px 30px;
+  height: 100%;
+  width: 100%;
+  background: #ffab00;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+}
+.auth h2 {
+  font-size: 30px;
+  color: var(--secondary-color);
+  font-family: 'Bilbo', cursive;
+}
+
+.btn {
+  border-radius: 100px;
+  width: 100%;
+  max-width: 80%;
+  padding: 15px 15px;
+  text-align: center;
+  margin: auto;
+  border: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-main-action {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+ .btn-secondary-action {
+  border: 2px solid var(--secondary-color);
+  background: transparent;
+  color: var(--secondary-color);
+}
+
+.btn-list {
+
+}
+.btn-list > *{
+  margin-bottom: 10px;
+
+}
