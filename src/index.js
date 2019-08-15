@@ -6,6 +6,7 @@ const User = require("./models/user") // chamada do modelo --> User
 const auth = require("./middleware/auth") // chamada do middleware --> auth
 const upload = require("./middleware/upload") // chamada do middleware --> upload using multer
 const sharp = require("sharp")
+const { sendWelcomeEmail, sendCancelationEmail } = require("./emails/account")
 
 // chamada do mongoose - na pasta "DB"
 require("./db/mongoose")
@@ -41,7 +42,9 @@ app.post("/users", async (req, res) => {
     
     try {
         await user.save()
+        sendWelcomeEmail(user.email, user.name)
         const token = await user.generateAuthToken()
+        
         res.status(201).send({ user, token })
 
     } catch(e) {
@@ -138,10 +141,12 @@ app.patch("/users/me", auth, async (req, res) => {
 })
 
 
+// --> Delete a User
 app.delete("/users/me", auth, async (req, res) => {
     try {
         
         await req.user.remove()
+        sendCancelationEmail(req.user.email, req.user.name)
         res.send(req.user)
 
     } catch(e) {
@@ -335,12 +340,6 @@ app.get("/users/id/avatar", async (req, res) => {
 
 })
 
-
-///////////////////////////////////////////////////////////
-
-// app.get("/", async (req, res) => {
-//     res.send("index")
-// })
 
 
 
