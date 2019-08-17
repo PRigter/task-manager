@@ -27,6 +27,7 @@ class Home extends React.Component {
             <Task slug='Buy some cooffee to code' done={true} />
           </ul>
         </div>
+        <button onClick={this.props.logout}>Logout</button>
       </div>
     )
   }

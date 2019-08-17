@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import request from '../../utils/request'
+import { API_URL } from '../../constants/variables'
+import local from '../../utils/local_data'
 
 class Register extends Component {
   state = {
@@ -11,7 +13,7 @@ class Register extends Component {
 
   render () {
     const { name, email, password, confirmPassword } = this.state
-
+    console.log(API_URL);
     return (
       <div className='container'>
         <h2>Create a new account</h2>
@@ -39,14 +41,13 @@ class Register extends Component {
   submitHandler = async (e) => {
     e.preventDefault()
     if (this.checkPasswordConfirm()) {
-      console.log('inside');
       const user = {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password,
       }
 
-      const response = await request('http://localhost:3001/users', {
+      const response = await request(API_URL + '/users', {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -55,8 +56,9 @@ class Register extends Component {
       })
 
       if (!response.errors) {
-        console.log(response);
         this.props.setToken(response.data.token)
+        local.set('name', response.data.user.name)
+        local.set('email', response.data.user.email)
       } else {
         console.log('ERROR on @register - check the network tab to debug it.');
       }
