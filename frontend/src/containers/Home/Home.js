@@ -2,7 +2,6 @@ import React from 'react';
 import './Home.css'
 import Task from '../../components/Task/Task'
 class Home extends React.Component {
-  
   render () {
     return (
       <div className='home-page'>
@@ -14,7 +13,7 @@ class Home extends React.Component {
         <div className='home-todo'>
           <div className='todo-header'>
             <span>Tasks</span>
-            <span>02</span>
+            <span style={{ color: '#999' }}>02</span>
           </div>
           <Task slug='Daily code study' done={false} />
           <Task slug='Workout' done={false} />

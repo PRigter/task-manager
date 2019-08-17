@@ -1,9 +1,9 @@
 :root {
-  --primary-color: #FD6900;
-  --primary-color-dark: #E0C592;
+  --primary-color: #4285f4;
+  --primary-color-dark: #6c63ff;
   --secondary-color: #221913;
-  --action-1: #ffab00;
-  --action-2: #E44D26;
+  --action-1: #f64758;
+  --header: linear-gradient(to right, #00d2cc 0%,rgba(255,255,255,0.4) 100%);
 }
 
 body {

@@ -1,30 +1,23 @@
 import React from 'react'
+import LOGO_IMG from '../../assets/icons/auth_logo.svg'
+import { Link } from 'react-router-dom'
 
 class Auth extends React.Component {
   componentDidMount () {
     this.props.disabledNav()
   }
 
-  getMotivationalQuotes = () => {
-    const quotes = [
-    'Boost your motivation with our app',
-    'Whats keeping you from achieving your dreams ?',
-    'Get your taks done with our application',
-    'Did you know that the most succesfull people track their tasks.',
-    'Stop forgetting about your chores and join us',
-    ]
-    const rand = Math.floor(Math.random() * (quotes.length -1))
-
-    return quotes[rand]
-  }
-
   render () {
     return (
         <div className='container auth'>
-          <h2>{this.getMotivationalQuotes()}</h2>
+          <div className='auth_draw'>
+            <img src={LOGO_IMG} alt='auth logo'/>
+          </div>
+          <h2>Accomplish more with less.<br />
+             <span style={{ color: '#f64758', fontWeight: 'bolder', fontSize: '22px' }}>Kata-do</span></h2>
           <div className='btn-list'>
-            <button className='btn btn-main-action'>Sign in</button>
-            <button className='btn btn-secondary-action'>Login</button>
+            <Link to='/register'><button className='btn btn-main-action' >Sign up</button></Link>
+            <Link to='/login'><button className='btn btn-secondary-action'>Login</button></Link>
           </div>
         </div>
     )

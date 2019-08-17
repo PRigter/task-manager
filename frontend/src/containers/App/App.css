@@ -1,6 +1,7 @@
 .container {
   text-align: center;
   margin: auto;
+  position: relative;
 }
 
 .auth {
@@ -8,15 +9,19 @@
   padding: 40px 30px;
   height: 100%;
   width: 100%;
-  background: #ffab00;
+  background: #fff;
   display: flex;
   flex-flow: column;
-  justify-content: space-around;
+  justify-content: flex-end;
 }
 .auth h2 {
-  font-size: 30px;
-  color: var(--secondary-color);
-  font-family: 'Bilbo', cursive;
+  font-size: 18px;
+  color: #111;
+  position: absolute;
+  top: 55%;
+  width: 80%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .btn {
@@ -26,26 +31,55 @@
   padding: 15px 15px;
   text-align: center;
   margin: auto;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
 }
 .btn-main-action {
-  background-color: var(--secondary-color);
+  background-color:#6c63ff;
   color: #fff;
 }
  .btn-secondary-action {
-  border: 2px solid var(--secondary-color);
+  border: 1px solid var(--secondary-color);
   background: transparent;
   color: var(--secondary-color);
 }
 
 .btn-list {
-
+  margin-bottom: 40px;
 }
-.btn-list > *{
+.btn-list > * {
   margin-bottom: 10px;
 
+}
+
+.auth_draw {
+  z-index: 0;
+  position: absolute;
+  top: 8%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+}
+.auth_draw img {
+  width: 70%;
+}
+
+.register-form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+.register-form button {
+  margin-top: auto;
+}
+.register-form input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  height: 40px;
+  border-radius: 4px;
+  margin: 15px auto;
 }
