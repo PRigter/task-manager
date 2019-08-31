@@ -2,6 +2,12 @@ import React from 'react';
 import './Home.css'
 import Task from '../../components/Task/Task'
 class Home extends React.Component {
+
+  componentDidMount () {
+    // user get tasks from server
+
+  }
+
   render () {
     return (
       <div className='home-page'>

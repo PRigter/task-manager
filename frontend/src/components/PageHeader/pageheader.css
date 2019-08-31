@@ -1,0 +1,18 @@
+.page-header {
+  padding: 30px 40px;
+  background: var(--primary-color);
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: left;
+  border-bottom-left-radius: 50px;
+}
+.page-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+.page-header h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+

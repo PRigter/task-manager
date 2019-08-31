@@ -1,12 +1,13 @@
 import React from 'react'
 import './App.css'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import Home from '../Home/Home'
 import Addtask from '../AddTask/AddTask'
 import Layout from '../../components/Layout/Layout'
 import Auth from '../Auth/Auth'
-import Register from '../Auth/Register';
+import Register from '../Auth/Register'
+import Login from '../Auth/Login'
 import local from '../../utils/local_data'
 import request from '../../utils/request'
 import { API_URL } from '../../constants/variables'
@@ -23,7 +24,7 @@ class App extends React.Component {
     // Auto login
     const token = local.get('token')
     if (token) {
-      this.loginUser(token)
+      //TODO: this.loginUser(token)
     }
   }
 
@@ -41,6 +42,7 @@ class App extends React.Component {
                   !isAuth &&
                   <>
                   <Route path='/register' render={() => <Register setToken={this.setToken} />} exact/>
+                  <Route path='/login' render={() => <Login loginUser={this.loginUser} />} exact/>
                   <Route path='/' render={() => <Auth disabledNav={() => this.disableNav()} />} exact/>
                   </>
                 }
@@ -73,13 +75,13 @@ class App extends React.Component {
     })
   }
 
-  loginUser = async () => {
+  loginUser = async ({ email, password }) => {
     const response = await request(`${API_URL}/users/login`, {
       headers: {
         'Content-Type': 'application/json',
       },
-      method: "POST",
-      body: JSON.stringify({ email: 'sikozonbatata99@gmail.com', password: 'batata123' }) //TODO - Remove this, thsi is for DEBUGING purps
+      method: 'POST',
+      body: JSON.stringify({ email: email, password: password })
     })
 
     if (!response.errors) {
@@ -100,7 +102,7 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({ user: this.state.loggedUser })
     })
 

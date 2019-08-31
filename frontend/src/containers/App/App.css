@@ -27,19 +27,20 @@
 .btn {
   border-radius: 100px;
   width: 100%;
-  max-width: 80%;
+  max-width: 250px;
   padding: 15px 15px;
   text-align: center;
-  margin: auto;
+  margin: 10px auto;
   border: 1px solid transparent;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
+
 }
 .btn-main-action {
   background-color:#6c63ff;
-  color: #fff;
+  color: #fff
 }
  .btn-secondary-action {
   border: 1px solid var(--secondary-color);
@@ -48,10 +49,10 @@
 }
 
 .btn-list {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
-.btn-list > * {
-  margin-bottom: 10px;
+.btn-list button {
+  margin-bottom: 20px;
 
 }
 
@@ -72,10 +73,9 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
 }
-.register-form button {
-  margin-top: auto;
-}
+
 .register-form input {
   padding: 5px 10px;
   border: 1px solid #ccc;

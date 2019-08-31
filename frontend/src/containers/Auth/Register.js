@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import request from '../../utils/request'
 import { API_URL } from '../../constants/variables'
 import local from '../../utils/local_data'
-
+import PageHeader from '../../components/PageHeader/PageHeader'
+import { Link } from 'react-router-dom'
 class Register extends Component {
   state = {
     name: '',
@@ -13,10 +14,13 @@ class Register extends Component {
 
   render () {
     const { name, email, password, confirmPassword } = this.state
-    console.log(API_URL);
+
     return (
       <div className='container'>
-        <h2>Create a new account</h2>
+        <PageHeader>
+            <h1>Every new adventure</h1>
+            <h2> starts with a new account</h2>
+        </PageHeader>
         <form className='register-form' method='post'>
           <input name='name' type='text' placeholder='Name' onChange={this.inputChange} value={name} required />
           <input name='email' type='email' placeholder='Email' onChange={this.inputChange} value={email} required />
@@ -24,6 +28,7 @@ class Register extends Component {
           <input name='confirmPassword' type='password' placeholder='Confirm passowrd' onChange={this.inputChange} value={confirmPassword} required />
 
           <button className='btn btn-main-action' onClick={this.submitHandler}>Create account</button>
+          <Link to='/'>back</Link>
         </form>
       </div>
     )
